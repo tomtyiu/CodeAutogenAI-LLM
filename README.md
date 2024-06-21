@@ -23,7 +23,8 @@ Code Completion: Complete partially written code snippets.
 Code Review: Provide constructive feedback and suggestions for improvement on existing code.
 Test Generation: Generate thorough unit tests for a given codebase.
 Code Debugging: Analyze and debug code based on provided error messages.
-Installation
+
+## Installation
 To use AutoGen Claude 3.5 Sonnet, you need to have Python installed on your system. Follow the steps below to set up the project:
 
 Clone the repository:
@@ -52,9 +53,10 @@ Usage
 The main script for AutoGen Claude 3.5 Sonnet is AutoGen_Claude_3.5_Sonnet.py. You can run this script to access the different functionalities of the tool.
 
 Run the script:
-
-Copy code
+<code>
 python AutoGen_Claude_3.5_Sonnet.py
+</code>
+
 Menu Options:
 
 Upon running the script, you will be presented with a menu offering various options:
