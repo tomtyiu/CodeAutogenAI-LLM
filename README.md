@@ -2,6 +2,7 @@ AutoGen Claude 3.5 Sonnet
 Welcome to AutoGen Claude 3.5 Sonnet, a comprehensive tool for automating various code-related tasks using the Claude 3.5 Sonnet model from Anthropic. This README provides instructions on how to set up, use, and contribute to this project.
 
 Table of Contents
+
 Introduction
 Features
 Installation
@@ -9,7 +10,9 @@ Usage
 Examples
 Contributing
 License
+
 Introduction
+
 AutoGen Claude 3.5 Sonnet is designed to help developers streamline their workflow by providing capabilities for code generation, documentation, code completion, code review, test generation, and debugging. Utilizing the advanced natural language processing capabilities of the Claude 3.5 Sonnet model, this tool aims to enhance productivity and code quality.
 
 Features
@@ -72,63 +75,68 @@ AutoGen Menu:
 
 Enter your choice (1-8): 1
 Examples
+
 Single Input AutoGen
 For processing a single input, enter the code you want to process, and AutoGen will generate documentation, complete the code, review it, and generate tests:
 
-plaintext
-Copy code
+<code>
 Enter your code for AutoGen processing:
 def add(a, b):
     return a + b
+</code>
+
 Code Generation
 Generate code based on a prompt:
+<code>Enter a prompt to generate code: Create a function that calculates the factorial of a number.</code>
 
-plaintext
-Copy code
-Enter a prompt to generate code: Create a function that calculates the factorial of a number.
+
 Documentation Generation
 Generate documentation for existing code:
 
-plaintext
-Copy code
+<code>
 Enter the code to document:
 def multiply(a, b):
     return a * b
+</code>
+
 Code Completion
 Complete a partially written code snippet:
 
-plaintext
-Copy code
+<code>
 Enter the partial code to complete:
 def divide(a, b):
     if b != 0:
+</code>
+
 Code Review
 Review existing code and provide feedback:
 
-plaintext
-Copy code
+<code>
 Enter the code to review:
 def subtract(a, b):
     return a - b
+</code>
+    
 Test Generation
 Generate unit tests for existing code:
 
-plaintext
-Copy code
+<code>
 Enter the code to generate tests for:
-def is_even(n):
+def is_even(n)
     return n % 2 == 0
+</code>
+
 Code Debugging
 Debug code with a given error message:
-
-plaintext
-Copy code
+<code>
 Enter the code to debug:
 def mod(a, b):
     return a % b
 
 Enter the error message:
 ZeroDivisionError: division by zero
+</code>
+
 Contributing
 Contributions are welcome! Please follow these steps to contribute:
 
