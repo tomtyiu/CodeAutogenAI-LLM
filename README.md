@@ -27,16 +27,26 @@ Installation
 To use AutoGen Claude 3.5 Sonnet, you need to have Python installed on your system. Follow the steps below to set up the project:
 
 Clone the repository:
-
-bash
-Copy code
+<code>
 git clone https://github.com/yourusername/AutoGen_Claude_3.5_Sonnet.git
 cd AutoGen_Claude_3.5_Sonnet
+</code>
 Install dependencies:
-
-bash
-Copy code
+<code>
 pip install anthropic
+</code>
+
+Setup key
+Windows
+<code>
+setx ANTHROPIC_API_KEY "your-api-key-here"
+</code>
+
+Mac/Linux
+<code>
+setx ANTHROPIC_API_KEY "your-api-key-here"
+</code>
+
 Usage
 The main script for AutoGen Claude 3.5 Sonnet is AutoGen_Claude_3.5_Sonnet.py. You can run this script to access the different functionalities of the tool.
 
