@@ -1,4 +1,4 @@
-## AutoGen Claude 3.5 Sonnet
+## AutoGen Claude 3.5 Sonnet / OpenAI GPT 4o
 Welcome to AutoGen Claude 3.5 Sonnet, a comprehensive tool for automating various code-related tasks using the Claude 3.5 Sonnet model from Anthropic. This README provides instructions on how to set up, use, and contribute to this project.
 
 ## Table of Contents
