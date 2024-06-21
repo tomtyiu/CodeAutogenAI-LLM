@@ -35,18 +35,24 @@ cd AutoGen_Claude_3.5_Sonnet
 
 Install dependencies:
 <code>
+Anthropic:
 pip install anthropic
+
+OpenAI
+pip install --upgrade openai
 </code>
 
 Setup key
 Windows
 <code>
 setx ANTHROPIC_API_KEY "your-api-key-here"
+setx OPENAI_API_KEY "your-api-key-here"
 </code>
 
 Mac/Linux
 <code>
-setx ANTHROPIC_API_KEY "your-api-key-here"
+export ANTHROPIC_API_KEY-"your-api-key-here"
+export OPENAI_API_KEY='your-api-key-here'
 </code>
 
 Usage
