@@ -36,7 +36,9 @@ cd AutoGen_Claude_3.5_Sonnet
 Install dependencies:
 <code>
 Anthropic:
-pip install anthropic
+pip install pyautogen["anthropic"]
+or
+!pip install pyautogen["anthropic"]
 
 OpenAI
 pip install --upgrade openai
