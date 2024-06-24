@@ -3,6 +3,8 @@ import os
 from typing_extensions import Annotated
 
 import autogen
+from autogen import UserProxyAgent
+from autogen import AssistantAgent
 
 config_list_claude = [
     {
