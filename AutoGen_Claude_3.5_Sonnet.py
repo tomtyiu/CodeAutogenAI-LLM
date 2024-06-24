@@ -34,6 +34,11 @@ user_proxy = autogen.UserProxyAgent(
     max_consecutive_auto_reply=1,
 )
 
+autogen_input=input(f"Write your prompt for autogen: (default: {"Write a python program to print the first 10 numbers of the Fibonacci sequence"}):")
+if autogen_input == "":
+    autogen_input = "Write a python program to print the first 10 numbers of the Fibonacci sequence"
+
+
 user_proxy.initiate_chat(
-    assistant, message="Write a python program to print the first 10 numbers of the Fibonacci sequence."
+    assistant, message=autogen_input
 )
