@@ -1,3 +1,5 @@
+//created by GPT 4o and Thomas Yiu
+
 import autogen
 from autogen import UserProxyAgent
 # Load LLM inference endpoints from an env variable or a file
