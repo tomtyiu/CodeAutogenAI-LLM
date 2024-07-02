@@ -27,10 +27,20 @@ Code Debugging: Analyze and debug code based on provided error messages.
 ## Installation
 To use AutoGen Claude 3.5 Sonnet, you need to have Python installed on your system. Follow the steps below to set up the project:
 
+
+
 Clone the repository:
 <code>
 git clone https://github.com/yourusername/AutoGen_Claude_3.5_Sonnet.git
 cd AutoGen_Claude_3.5_Sonnet
+</code>
+
+Ensure to sandbox the code: 
+<code>
+//create virtual environment
+python -m venv myenv
+//activate environment
+myenv\Scipts\Activate
 </code>
 
 Install dependencies:
