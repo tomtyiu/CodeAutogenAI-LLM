@@ -75,6 +75,8 @@ Run the script:
 python AutoGen_Claude_3.5_Sonnet.py
 </code>
 
+Highly recommend to use Docker
+
 
 Contributing
 Contributions are welcome! Please follow these steps to contribute:
