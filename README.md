@@ -86,5 +86,8 @@ Create a new branch (<code>git checkout -b feature-branch</code>).
 Commit your changes (<code>git commit -am 'Add new feature' </code>).
 Push to the branch (<code>git push origin feature-branch</code>).
 Create a new Pull Request.
+
+
 License
-This project is licensed under the MIT License. See the LICENSE file for more details.FR
+This project is licensed under the MIT License. 
+See the LICENSE file for more details.
