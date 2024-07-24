@@ -1,93 +1,160 @@
-## CodeAutoGen Claude 3.5 Sonnet / OpenAI GPT 4o
-Welcome to AutoGen Claude 3.5 Sonnet, a comprehensive tool for automating various code-related tasks using the Claude 3.5 Sonnet model from Anthropic. This README provides instructions on how to set up, use, and contribute to this project.
+# AutomindGPT
 
-## Table of Contents
-
-Introduction
-Features
-Installation
-Usage
-Examples
-Contributing
-License
-
-## Introduction
-
-AutoGen Claude 3.5 Sonnet is designed to help developers streamline their workflow by providing capabilities for code generation, documentation, code completion, code review, test generation, and debugging. Utilizing the advanced natural language processing capabilities of the Claude 3.5 Sonnet model, this tool aims to enhance productivity and code quality.
+AutomindGPT is an AI-driven assistant that leverages advanced language models and speech-to-text/text-to-speech functionalities to provide an interactive user experience. This project integrates various tools and APIs to deliver seamless voice and text-based interactions.
 
 ## Features
-Single Input Processing: Automatically generates documentation, completes code, reviews code, and generates tests for a given input.
-Code Generation: Generate new code based on a given prompt.
-Documentation Generation: Create clear and comprehensive documentation for any piece of code.
-Code Completion: Complete partially written code snippets.
-Code Review: Provide constructive feedback and suggestions for improvement on existing code.
-Test Generation: Generate thorough unit tests for a given codebase.
-Code Debugging: Analyze and debug code based on provided error messages.
+
+- **Voice Recording and Transcription**: Record audio and transcribe it to text using the WhisperModel.
+- **Text-to-Speech**: Convert text responses to audio using ElevenLabs.
+- **Advanced Language Models**: Use OpenAI's GPT-4 for intelligent conversations and task handling.
+- **Secure and Sanitized Input**: Ensure all user inputs are sanitized for safety.
+- **Automated Task Execution**: Employs autogen's AssistantAgent and UserProxyAgent for task automation.
 
 ## Installation
-To use AutoGen Claude 3.5 Sonnet, you need to have Python installed on your system. Follow the steps below to set up the project:
 
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/yourusername/automindgpt.git
+    cd automindgpt
+    ```
 
+2. **Set up the environment**:
+    Ensure you have the necessary API keys and environment variables set up. Refer to [FAQ](https://microsoft.github.io/autogen/docs/FAQ#set-your-api-endpoints) for more details.
 
-Clone the repository:
-<code>
-git clone https://github.com/yourusername/AutoGen_Claude_3.5_Sonnet.git
-cd AutoGen_Claude_3.5_Sonnet
-</code>
+3. **Install dependencies**:
+    ```sh
+    pip install -r requirements.txt
+    ```
 
-Ensure to sandbox the code: 
-<code>
-//create virtual environment
-python -m venv myenv
-//activate environment
-myenv\Scipts\Activate
-</code>
+## Usage
 
-Install dependencies:
-<code>
-Anthropic:
-pip install pyautogen["anthropic"]
-or
-!pip install pyautogen["anthropic"]
+1. **Recording Audio**:
+    ```python
+    from autogen import Cache
+    from elevenlabs import play
 
-OpenAI
-pip install --upgrade openai
-</code>
+    FORMAT = pyaudio.paInt16
+    CHANNELS = 2
+    RATE = 16000
+    CHUNK = 1024
+    RECORD_SECONDS = 15
+    WAVE_OUTPUT_FILENAME = "file.wav"
 
-Setup key
-Windows
-<code>
-setx ANTHROPIC_API_KEY "your-api-key-here"
-setx OPENAI_API_KEY "your-api-key-here"
-</code>
+    def recording(WAVE_OUTPUT_FILENAME):
+        audio = pyaudio.PyAudio()
+        stream = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
+        print("recording...")
+        frames = []
+        for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+            data = stream.read(CHUNK)
+            frames.append(data)
+        print("finished recording")
+        stream.stop_stream()
+        stream.close()
+        audio.terminate()
+        waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+        waveFile.setnchannels(CHANNELS)
+        waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+        waveFile.setframerate(RATE)
+        waveFile.writeframes(b''.join(frames))
+        waveFile.close()
+    ```
 
-Mac/Linux
-<code>
-export ANTHROPIC_API_KEY-"your-api-key-here"
-export OPENAI_API_KEY='your-api-key-here'
-</code>
+2. **Transcribing Audio**:
+    ```python
+    def transcribe(WAVE_OUTPUT_FILENAME):
+        with open(WAVE_OUTPUT_FILENAME, "rb") as file:
+            transcription = client.audio.transcriptions.create(
+                file=(WAVE_OUTPUT_FILENAME, file.read()),
+                model="whisper-large-v3",
+                prompt="Specify context or spelling",
+                response_format="json",
+                language="en",
+                temperature=0.0
+            )
+            print(transcription.text)
+            return transcription.text
+    ```
 
-Usage
-The main script for AutoGen Claude 3.5 Sonnet is AutoGen_Claude_3.5_Sonnet.py. You can run this script to access the different functionalities of the tool.
+3. **Text-to-Speech**:
+    ```python
+    ELEVENLABS_API_KEY = "api-key"
 
-Run the script:
-<code>
-python AutoGen_Claude_3.5_Sonnet.py
-</code>
+    def synthesis(text):
+        client = ElevenLabs(api_key=ELEVENLABS_API_KEY)
+        audio = client.generate(
+            optimize_streaming_latency="0",
+            text=text,
+            voice="06oPEcZqPWhZ2IeTcOJc",
+            model="eleven_turbo_v2"
+        )
+        play(audio)
+    ```
 
-Highly recommend to use Docker
+4. **Setting up the Assistant and User Proxy**:
+    ```python
+    from autogen import AssistantAgent, UserProxyAgent
+    from autogen.coding import LocalCommandLineCodeExecutor
 
+    llm_config = {
+        "config_list": [{"model": "gpt-4o-mini", "api_key": os.environ["OPENAI_API_KEY"]}],
+    }
 
-Contributing
-Contributions are welcome! Please follow these steps to contribute:
+    assistant = autogen.AssistantAgent(
+        name="assistant",
+        llm_config=llm_config
+    )
 
-Fork the repository.
-Create a new branch (<code>git checkout -b feature-branch</code>).
-Commit your changes (<code>git commit -am 'Add new feature' </code>).
-Push to the branch (<code>git push origin feature-branch</code>).
-Create a new Pull Request.
+    user_proxy = autogen.UserProxyAgent(
+        name="user_proxy",
+        human_input_mode="TERMINATE",
+        max_consecutive_auto_reply=10,
+        is_termination_msg=lambda x: x.get("content", "").rstrip().endswith("TERMINATE"),
+        code_execution_config={
+            "executor": LocalCommandLineCodeExecutor(work_dir="coding"),
+        },
+        llm_config=llm_config,
+        system_message="""Reply TERMINATE if the task has been solved at full satisfaction.
+        Otherwise, reply CONTINUE, or the reason why the task is not solved yet.""",
+    )
+    ```
 
+5. **Sanitizing Input**:
+    ```python
+    import re
 
-License
-This project is licensed under the MIT License. 
-See the LICENSE file for more details.
+    def sanitize_input(user_input: str) -> str:
+        sanitized_input = re.sub(r'[^\w\s]', '', user_input)
+        return sanitized_input
+    ```
+
+6. **Initiating Chat**:
+    ```python
+    synthesis("Welcome to AutomindGPT! Select 1 for Voice or 2 for manual input.")
+    choice = input("Welcome to AutomindGPT! Select 1 for Voice or 2 for manual input.")
+
+    if choice == "1":
+        record = recording(WAVE_OUTPUT_FILENAME)
+        autogen_input_1 = transcribe(WAVE_OUTPUT_FILENAME)
+        synthesis(f"Write your prompt for autogen: {autogen_input_1}")
+        autogen_input = sanitize_input(autogen_input_1)
+
+    elif choice == "2":
+        autogen_input_1 = input(f"Write your prompt for autogen: (default: 'Plot a chart of NVDA and TESLA stock price change YTD.'):")
+        synthesis(f"Write your prompt for autogen: {autogen_input_1}")
+        autogen_input = sanitize_input(autogen_input_1)
+        if autogen_input_1 == "":
+            autogen_input = "Plot a chart of NVDA and TESLA stock price change YTD."
+            synthesis(autogen_input)
+
+    with Cache.disk() as cache:
+        messages = user_proxy.initiate_chat(assistant, message=autogen_input, cache=cache, summary_method="reflection_with_llm")
+    ```
+
+## Contributing
+
+Feel free to open issues and submit pull requests. Contributions are welcome!
+
+## License
+
+This project is licensed under the MIT License.
